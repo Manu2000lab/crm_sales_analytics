@@ -29,7 +29,7 @@ Synthetic but realistic CRM/sales opportunity data (3,000 records) modeled on a 
 - Engineered two features: `is_won` (boolean flag) and `sales_cycle_days` (days between deal creation and close), enabling the win-rate and cycle-time analysis below
 
 ##Data Cleaning using python 
-
+```python
 import pandas as pd
 
 df = pd.read_csv("crm_sales_raw.csv")
@@ -45,7 +45,7 @@ df["company_name"] = df["company_name"].str.strip().str.title()
 
 # Fill missing amounts with industry median (a defensible, explainable choice)
 df["amount_usd"] = df["amount_usd"].fillna(df.groupby("industry")["amount_usd"].transform("median"))
-
+```
 ## Key Findings
 
 
