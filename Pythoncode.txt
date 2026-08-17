@@ -1,0 +1,25 @@
+import pandas as pd
+
+df = pd.read_csv("crm_sales_raw.csv")
+
+# Check what's dirty first — run this and look at the output
+print(df.isna().sum())
+print(df["region"].unique())
+print(df["industry"].unique())
+# Fix casing and whitespace
+df["region"] = df["region"].str.strip().str.title()
+df["industry"] = df["industry"].str.strip().str.title()
+df["company_name"] = df["company_name"].str.strip().str.title()
+
+# Fill missing amounts with industry median (a defensible, explainable choice)
+df["amount_usd"] = df["amount_usd"].fillna(df.groupby("industry")["amount_usd"].transform("median"))
+
+# Convert dates
+df["created_date"] = pd.to_datetime(df["created_date"])
+df["close_date"] = pd.to_datetime(df["close_date"])
+
+# Engineer two useful columns
+df["is_won"] = df["stage"] == "Closed Won"
+df["sales_cycle_days"] = (df["close_date"] - df["created_date"]).dt.days
+
+df.to_csv("crm_sales_clean.csv", index=False)
