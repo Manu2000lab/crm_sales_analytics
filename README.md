@@ -86,8 +86,6 @@ Interactive Power BI dashboard connected live to PostgreSQL, with region and ind
 - Quarterly Revenue Trend (line chart, Closed Won only)
 - Top 10 Companies by Revenue (bar/table, ranked)
 
-The full `.pbix` file is in [`dashboard/crm_sales_dashboard.pbix`](dashboard/crm_sales_dashboard.pbix).
-
 ## How to Reproduce
 
 1. Clone this repo
